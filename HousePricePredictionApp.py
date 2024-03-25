@@ -3,7 +3,7 @@ import streamlit as st
 st.header('Welcome to My House Price Prediction Model')
 
 # Allow users to upload the model file
-model_file = st.file_uploader("Price_Prediction_Model.sav", type=["sav"])
+model = st.file_uploader("Price_Prediction_Model.sav", type=["sav"])
 
 
 with st.form('Myform'):
