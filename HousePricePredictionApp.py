@@ -1,15 +1,14 @@
 import streamlit as st
 import joblib
 
-st.header('Welcome to My House Price Prediction Model')
+# Load the trained machine learning model
+model = joblib.load('Price_Prediction_Model.sav')
 
-# Allow users to upload the model file
-model = st.file_uploader("Price_Prediction_Model.sav", type=["sav"])
-
+st.header('Hello, Welcome to our House Price Prediction model')
 
 with st.form('Myform'):
         col1, col2, col3 = st.columns([1,1,1])
-        area = col1.number_input('Area size(in square feet)', 0, 17000, step=100)
+        area = col1.number_input('Area size', 0, 17000, step=100)
         bedrooms = col1.selectbox('Select no. of Bedrooms', [1,2,3,4,5,6])
         bathrooms = col1.selectbox('Select no. of Bathrooms', [1,2,3,4])
         stories = col1.selectbox('Select no. of Stories', [1,2,3,4])
@@ -52,11 +51,21 @@ with st.form('Myform'):
 
         submit = st.form_submit_button('Process')
 
-    # Process the inputs and provide feedback
+# Process the inputs and provide feedback
 if submit:
-        input_data = [[area, bedrooms, bathrooms, stories, main_road_numeric, guestroom_numeric,
-                    basement_numeric, hotwater_heating_numeric, air_conditioning_numeric,
-                    parking, pref_area_numeric, furnishing_status_numeric]]
+    # Here you can add the code to process the inputs and generate predictions
+    # For now, let's just display the inputs as feedback
+    input_data = [[area, bedrooms, bathrooms, stories, main_road_numeric, guestroom_numeric,
+                   basement_numeric, hotwater_heating_numeric, air_conditioning_numeric,
+                   parking, pref_area_numeric, furnishing_status_numeric]]
+    
+    predicted_price = model.predict(input_data)
+    st.write(f'Predicted Price: {predicted_price}')
 
-        predicted_price = model.predict(input_data)
-        st.write(f'Predicted Price: {predicted_price}')
+
+
+
+
+#'area':any number, 'bedrooms':1-6 , 'bathrooms':1-4, 'stories':1-4, 'main_road':0,1, 'guestroom':0,1,
+#'basement':0,1, 'hotwater_heating':0,1, 'air_conditioning':0,1, 'parking':0-3,
+#'pref_area':0,1, 'furnishing_status':0,1,2
