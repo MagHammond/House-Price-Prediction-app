@@ -1,5 +1,4 @@
 import streamlit as st
-import joblib
 
 st.header('Welcome to My House Price Prediction Model')
 
