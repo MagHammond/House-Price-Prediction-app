@@ -1,10 +1,11 @@
 import streamlit as st
 import joblib
 
-# Load the trained machine learning model
-model = joblib.load("Price_Prediction_Model.sav")
-
 st.header('Welcome to My House Price Prediction Model')
+
+# Allow users to upload the model file
+model_file = st.file_uploader("Price_Prediction_Model.sav", type=["sav"])
+
 
 with st.form('Myform'):
         col1, col2, col3 = st.columns([1,1,1])
@@ -51,18 +52,11 @@ with st.form('Myform'):
 
         submit = st.form_submit_button('Process')
 
-# Process the inputs and provide feedback
+    # Process the inputs and provide feedback
 if submit:
-  
-    input_data = [[area, bedrooms, bathrooms, stories, main_road_numeric, guestroom_numeric,
-                   basement_numeric, hotwater_heating_numeric, air_conditioning_numeric,
-                   parking, pref_area_numeric, furnishing_status_numeric]]
-    
-    predicted_price = model.predict(input_data)
-    st.write(f'Predicted Price: {predicted_price}')
+        input_data = [[area, bedrooms, bathrooms, stories, main_road_numeric, guestroom_numeric,
+                    basement_numeric, hotwater_heating_numeric, air_conditioning_numeric,
+                    parking, pref_area_numeric, furnishing_status_numeric]]
 
-
-
-
-
-#Type 'streamlit run .\HousePricePredictionApp.py' in the terminal to deploy the user-friendly interface, which will allow users to input house features and obtain predicted price estimate.
+        predicted_price = model.predict(input_data)
+        st.write(f'Predicted Price: {predicted_price}')
