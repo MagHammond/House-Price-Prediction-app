@@ -1,12 +1,15 @@
 import streamlit as st
+import joblib as jb
 
 st.header('Welcome to My House Price Prediction Model')
 
 # Allow users to upload the model file
-model = st.file_uploader("Price_Prediction_Model.sav", type=["sav"])
+model_file = st.file_uploader("Price_Prediction_Model.sav", type=["sav"])
 
+if model_file is not None:
+    model = jb.load(model_file)
 
-with st.form('Myform'):
+    with st.form('Myform'):
         col1, col2, col3 = st.columns([1,1,1])
         area = col1.number_input('Area size(in square feet)', 0, 17000, step=100)
         bedrooms = col1.selectbox('Select no. of Bedrooms', [1,2,3,4,5,6])
@@ -52,7 +55,7 @@ with st.form('Myform'):
         submit = st.form_submit_button('Process')
 
     # Process the inputs and provide feedback
-if submit:
+    if submit and model is not None:
         input_data = [[area, bedrooms, bathrooms, stories, main_road_numeric, guestroom_numeric,
                     basement_numeric, hotwater_heating_numeric, air_conditioning_numeric,
                     parking, pref_area_numeric, furnishing_status_numeric]]
