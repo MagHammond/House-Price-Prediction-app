@@ -1,10 +1,10 @@
 import streamlit as st
+import joblib
 
 st.header('Welcome to My House Price Prediction Model')
 
 # Allow users to upload the model file
 model = st.file_uploader("Price_Prediction_Model.sav", type=["sav"])
-
 
 
 with st.form('Myform'):
@@ -53,10 +53,10 @@ with st.form('Myform'):
         submit = st.form_submit_button('Process')
 
     # Process the inputs and provide feedback
-if submit and model is not None:
+if submit:
         input_data = [[area, bedrooms, bathrooms, stories, main_road_numeric, guestroom_numeric,
                     basement_numeric, hotwater_heating_numeric, air_conditioning_numeric,
                     parking, pref_area_numeric, furnishing_status_numeric]]
 
-     predicted_price = model.predict(input_data)
-     st.write(f'Predicted Price: {predicted_price}')
+        predicted_price = model.predict(input_data)
+        st.write(f'Predicted Price: {predicted_price}')
