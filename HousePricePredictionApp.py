@@ -60,7 +60,7 @@ if submit:
                    parking, pref_area_numeric, furnishing_status_numeric]]
     
     predicted_price = model.predict(input_data)
-    st.write(f'Predicted Price: {predicted_price}')
+    st.success(f'Predicted Price: {predicted_price}')
 
 
 
