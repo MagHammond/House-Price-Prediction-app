@@ -1,15 +1,17 @@
 
 import streamlit as st
-import joblib
+import pickle
 
 # Load the trained machine learning model
-model = joblib.load('Price_Prediction_model.h5')
+pickle_in = open('Price_Prediction_Model.sav','rb')
+model = pickle.load(pickle_in)
 
-st.header('Welcome to My House Price Prediction model')
+st.title('USA Housing Price Prediction Model')
+
 
 with st.form('Myform'):
-        col1, col2, col3 = st.columns([1,1,1])
-        area = col1.number_input('Area size(in square feet)', 0, 17000, step=100)
+        col1, col2, col3 = st.columns(3)
+        area = col1.number_input('Area size(in square feet)',min_value = 0, step=5)
         bedrooms = col1.selectbox('Select no. of Bedrooms', [1,2,3,4,5,6])
         bathrooms = col1.selectbox('Select no. of Bathrooms', [1,2,3,4])
         stories = col1.selectbox('Select no. of Stories', [1,2,3,4])
@@ -61,7 +63,8 @@ if submit:
                    parking, pref_area_numeric, furnishing_status_numeric]]
     
     predicted_price = model.predict(input_data)
-    st.success(f'Predicted Price: {predicted_price}')
+    n = '${}'.format(predicted_price[0])
+    st.success(f'Predicted Price: {n}')
 
 
 
