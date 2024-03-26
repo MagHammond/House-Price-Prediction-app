@@ -1,14 +1,15 @@
+
 import streamlit as st
 import joblib
 
 # Load the trained machine learning model
-model = joblib.load('Price_Prediction_Model.sav')
+model = joblib.load('Price_Prediction_model.h5')
 
-st.header('Hello, Welcome to our House Price Prediction model')
+st.header('Welcome to My House Price Prediction model')
 
 with st.form('Myform'):
         col1, col2, col3 = st.columns([1,1,1])
-        area = col1.number_input('Area size', 0, 17000, step=100)
+        area = col1.number_input('Area size(in square feet)', 0, 17000, step=100)
         bedrooms = col1.selectbox('Select no. of Bedrooms', [1,2,3,4,5,6])
         bathrooms = col1.selectbox('Select no. of Bathrooms', [1,2,3,4])
         stories = col1.selectbox('Select no. of Stories', [1,2,3,4])
